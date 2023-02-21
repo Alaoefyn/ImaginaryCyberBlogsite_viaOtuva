@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+    <title>Gallery</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+      rel="stylesheet"
+    />
+    <link href="../assets/css/main.css" rel="stylesheet" id="main-theme-link"/>
+    <link href="../assets/css/gallery.css" rel="stylesheet" />
+    <!-- gallery styles -->
+  </head>
+  <body>
+    <!--top bar-->
+    <div id="topbar">
+      <div class="topbar-children-top">
+        <div class="switch-container">
+          <!-- Rounded switch -->
+          <label class="switch">
+            <input type="checkbox" id="dark-mode-checkbox" />
+            <span class="slider round"></span>
+          </label>
+        </div>
+      </div>
+      <div class="topbar-children-top">
+        <div class="icon-bar">
+          <a href="https://t.me/fibaruSecurity"><i class="fa fa-fw fa-telegram"></i></a>
+          <a href="https://www.reddit.com/r/fibaruSecurity/"><i class="fa fa-fw fa-reddit"></i></a>
+          <a href="https://twitter.com/FibaruSec"><i class="fa fa-fw fa-twitter-square"></i></a>
+        </div>
+      </div>
+
+      <div class="topbar-children">
+        <!-- griffin logo -->
+        <img
+          id="griffin"
+          src="../images/techno_griffin.svg"
+          width="40"
+          height="60"
+          alt="griffin"
+        />
+
+        <!-- navigational buttons -->
+        <div class="navbar">
+          <!-- home -->
+          <div class="dropdown">
+            <button class="dropbtn" onclick="location.href='../index.html'">
+              <i class="fa fa-fw fa-home"></i>
+              Home
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+              <a href="../index.html#main-image-header">Header Images</a>
+              <a href="../index.html#our-features-slide">Slide</a>
+              <a href="../index.html#reviews-about-us">Reviews</a>
+              <a href="../index.html#clients-working-with-us">Clients</a>
+              <a href="../index.html#brute-demonstration">Brute Force</a>
+            </div>
+          </div>
+
+          <!-- archive -->
+          <div class="dropdown active">
+            <button class="dropbtn" onclick="location.href='./site-map.html'">
+              <i class="fa fa-fw fa-pencil"></i>
+              Archive
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+              <a href="./site-map.html">Site Map</a>
+              <a href="./blog-archive.html">Blog Archive</a>
+              <a href="">Gallery</a>
+            </div>
+          </div>
+
+          <!-- about us -->
+          <div class="dropdown">
+            <button class="dropbtn" onclick="location.href='./about.html'">
+              <i class="fa fa-fw fa-info-circle"></i>
+              About Us
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+              <a href="./about.html#about-us">About Us</a>
+              <a href="./about.html#contact-us">Contact Us</a>
+              <a href="./about.html#legal-policy">Legal Notice</a>
+              <a href="./about.html#privacy-policy">Privacy Policy</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="topbar-children">
+        <div class="login-bar">
+          <a href="./login.html"><i class="fa fa-fw fa-user"></i> Login</a>
+          <a href="./register.html"
+            ><i class="fa fa-fw fa-edit"></i> Register</a
+          >
+          <a href="#"><i class="fa fa-fw fa-search"></i> Search</a>
+        </div>
+      </div>
+    </div>
+
+    <!--gallery-->
+    <!-- images related to blog-->
+    <section class="section blog-page">
+      <img
+        src="../images/directory-traversal.svg"
+        title="Directory Traversal"
+        class="img"
+        data-id="1"
+        alt="Directory Traversal"
+      />
+      <img
+        src="../images/dom.png"
+        title="DOM-based Vulnerabilities"
+        class="img"
+        data-id="2"
+        alt="DOM-based Vulnerabilities"
+      />
+      <img
+        src="../images/host-header-attacks.jpg"
+        title="Http Host Header Attacks"
+        class="img"
+        data-id="3"
+        alt="Http Host Header Attacks"
+      />
+      <img
+        src="../images/logic-flaws.jpg"
+        title="Business Logic Vulnerabilities"
+        class="img"
+        data-id="4"
+        alt="Business Logic Vulnerabilities"
+      />
+      <img
+        src="../images/password-reset-poisoning.svg"
+        title="Authentication Vulnerabilities"
+        class="img"
+        data-id="5"
+        alt="Authentication Vulnerabilities"
+      />
+      <img
+        src="../images/second-order-sql-injection.svg"
+        title="SQL Injection 2"
+        class="img"
+        data-id="6"
+        alt="SQL Injection 2"
+      />
+      <img
+        src="../images/sql-injection.svg"
+        title="SQL Injection"
+        class="img"
+        data-id="7"
+        alt="SQL Injection"
+      />
+    </section>
+
+    <!-- images related to index-->
+    <section class="section index-page">
+      <img
+        src="../images/glitch0.jpg"
+        title="Glitch 1"
+        class="img"
+        data-id="1"
+        alt="Glitch 2"
+      />
+      <img
+        src="../images/glitch1.jpg"
+        title="Glitch 2"
+        class="img"
+        data-id="2"
+        alt="Glitch 3"
+      />
+      <img
+        src="../images/glitch2.jpg"
+        title="Glitch 3"
+        class="img"
+        data-id="3"
+        alt="Glitch 4"
+      />
+      <img
+        src="../images/glitch3.jpg"
+        title="Glitch 4"
+        class="img"
+        data-id="4"
+        alt="Glitch 5"
+      />
+      <img
+        src="../images/glitch4.jpg"
+        title="Glitch 5"
+        class="img"
+        data-id="5"
+        alt="Glitch 6"
+      />
+    </section>
+
+    <section class="section other">
+      <img
+        src="../images/pepe.jpg"
+        title="Pepe the Frog"
+        class="img"
+        data-id="1"
+        alt="Pepe the Frog"
+      />
+      <img
+        src="../images/techno_griffin.svg"
+        title="Logo"
+        class="img"
+        data-id="2"
+        alt="Logo"
+      />
+    </section>
+
+    <!--modal-->
+    <div class="modal">
+      <button class="close-btn">
+        <i class="fa fa-fw fa-times"></i>
+      </button>
+      <div class="modal-content">
+        <!--prev next buttons-->
+        <button class="prev-btn">
+          <i class="fa fa-fw fa-chevron-left"></i>
+        </button>
+
+        <button class="next-btn">
+          <i class="fa fa-fw fa-chevron-right"></i>
+        </button>
+
+        <!-- content-->
+        <img src="./images/city-1.jpeg" class="main-img" alt="" srcset="" />
+        <h3 class="image-name"></h3>
+        <div class="modal-images"></div>
+      </div>
+    </div>
+
+    <script src="../assets/js/darkMode.js"></script>
+    <script src="../assets/js/gallery.js"></script>
+  </body>
+</html>

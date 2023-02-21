@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/x-icon" href="../../images/favicon.ico">
+    <title>Host Header Vulnerabilities</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../assets/css/main.css" rel="stylesheet" id="main-theme-link"/>
+    <link href="../../assets/css/blog.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="topbar">
+      <div class="topbar-children-top">
+        <div class="switch-container">
+          <!-- Rounded switch -->
+          <label class="switch">
+            <input type="checkbox" id="dark-mode-checkbox" />
+            <span class="slider round"></span>
+          </label>
+        </div>
+      </div>
+      <div class="topbar-children-top">
+        <div class="icon-bar">
+          <a href="https://t.me/fibaruSecurity"><i class="fa fa-fw fa-telegram"></i></a>
+          <a href="https://www.reddit.com/r/fibaruSecurity/"><i class="fa fa-fw fa-reddit"></i></a>
+          <a href="https://twitter.com/FibaruSec"><i class="fa fa-fw fa-twitter-square"></i></a>
+        </div>
+      </div>
+
+      <div class="topbar-children">
+        <!-- griffin logo -->
+        <img
+          id="griffin"
+          src="../../images/techno_griffin.svg"
+          width="40"
+          height="60"
+          alt="griffin"
+        />
+
+        <!-- navigational buttons -->
+        <div class="navbar">
+          <!-- home -->
+          <div class="dropdown">
+            <button class="dropbtn" onclick="location.href='../../index.html'">
+              <i class="fa fa-fw fa-home"></i>
+              Home
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+              <a href="../../index.html#main-image-header">Header Images</a>
+              <a href="../../index.html#our-features-slide">Slide</a>
+              <a href="../../index.html#reviews-about-us">Reviews</a>
+              <a href="../../index.html#clients-working-with-us">Clients</a>
+              <a href="../../index.html#brute-demonstration">Brute Force</a>
+            </div>
+          </div>
+
+          <!-- archive -->
+          <div class="dropdown">
+            <button class="dropbtn" onclick="location.href='../site-map.html'">
+              <i class="fa fa-fw fa-pencil"></i>
+              Archive
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+              <a href="../site-map.html">Site Map</a>
+              <a href="../blog-archive.html">Blog Archive</a>
+              <a href="../gallery.html">Gallery</a>
+            </div>
+          </div>
+
+          <!-- about us -->
+          <div class="dropdown">
+            <button class="dropbtn" onclick="location.href='../about.html'">
+              <i class="fa fa-fw fa-info-circle"></i>
+              About Us
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+              <a href="../about.html#about-us">About Us</a>
+              <a href="../about.html#contact-us">Contact Us</a>
+              <a href="../about.html#legal-policy">Legal Notice</a>
+              <a href="../about.html#privacy-policy">Privacy Policy</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="topbar-children">
+        <div class="login-bar">
+          <a href="../login.html"><i class="fa fa-fw fa-user"></i> Login</a>
+          <a href="../register.html"
+            ><i class="fa fa-fw fa-edit"></i> Register</a
+          >
+          <a href=""><i class="fa fa-fw fa-search"></i> Search</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="blog-content">
+      <h1>Http Host Header Attacks</h1>
+      <div class="info-card">
+        <p>by Onur Admin</p>
+        <p id="date">24 / 04 / 2022</p>
+        <hr />
+      </div>
+
+      <div class="post-text">
+        <p>
+          In this section, we'll discuss how misconfigurations and flawed business logic can expose websites to a variety of
+          attacks via the HTTP Host header. We'll outline the high-level methodology for identifying websites that are
+          vulnerable to HTTP Host header attacks and demonstrate how you can exploit this. Finally, we'll provide some general
+          guidance on how you can protect your own websites.
+      </p>
+      <img alt="Host header attack" src="../..//images/host-header-attacks.jpg">
+      <h2 id="what-is-the-http-host-header">What is the HTTP Host header?</h2>
+      <p>
+          The HTTP Host header is a mandatory request header as of HTTP/1.1. It specifies the domain name that the client
+          wants to access. For example, when a user visits <code>https://example.com/test</code>, their browser
+          will compose a request containing a Host header as follows:
+      </p>
+      <code class="code-block">GET /test HTTP/1.1
+Host: example.com</code>
+      
+      <p>
+          In some cases, such as when the request has been forwarded by an intermediary system, the Host value may be altered
+          before it reaches the intended back-end component. We will discuss this scenario in more detail below.
+      </p>
+      <h2 id="what-is-the-purpose-of-the-http-host-header">What is the purpose of the HTTP Host header?</h2>
+      <p>
+          The purpose of the HTTP Host header is to help identify which back-end component the client wants to communicate
+          with. If requests didn't contain Host headers, or if the Host header was malformed in some way, this could lead to
+          issues when routing incoming requests to the intended application.
+      </p>
+      <p>
+          Historically, this ambiguity didn't exist because each IP address would only host content for a single domain.
+          Nowadays, largely due to the ever-growing trend for cloud-based solutions and outsourcing much of the related
+          architecture, it is common for multiple websites and applications to be accessible at the same IP address. This
+          approach has also increased in popularity partly as a result of IPv4 address exhaustion.
+      </p>
+      <p>
+          When multiple applications are accessible via the same IP address, this is most commonly a result of one of the
+          following scenarios.
+      </p>
+      <h2 id="virtual-hosting">Virtual hosting</h2>
+      <p>
+          One possible scenario is when a single web server hosts multiple websites or applications. This could be multiple
+          websites with a single owner, but it is also possible for websites with different owners to be hosted on a single,
+          shared platform. This is less common than it used to be, but still occurs with some cloud-based SaaS solutions.
+      </p>
+      <p>
+          In either case, although each of these distinct websites will have a different domain name, they all share a common
+          IP address with the server. Websites hosted in this way on a single server are known as "virtual hosts".
+      </p>
+      <p>
+          To a normal user accessing the website, a virtual host is often indistinguishable from a website being hosted on its
+          own dedicated server.
+      </p>
+      <h2 id="routing-traffic-via-an-intermediary">Routing traffic via an intermediary</h2>
+      <p>
+          Another common scenario is when websites are hosted on distinct back-end servers, but all traffic between the client
+          and servers is routed through an intermediary system. This could be a simple load balancer or a reverse proxy server
+          of some kind. This setup is especially prevalent in cases where clients access the website via a content delivery
+          network (CDN).
+      </p>
+      <p>
+          In this case, even though the websites are hosted on separate back-end servers, all of their domain names resolve to
+          a single IP address of the intermediary component. This presents some of the same challenges as virtual hosting
+          because the reverse proxy or load balancer needs to know the appropriate back-end to which it should route each
+          request.
+      </p>
+      <h2 id="how-does-the-http-host-header-solve-this-problem">How does the HTTP Host header solve this problem?</h2>
+      <p>
+          In both of these scenarios, the Host header is relied on to specify the intended recipient. A common analogy is the
+          process of sending a letter to somebody who lives in an apartment building. The entire building has the same street
+          address, but behind this street address there are many different apartments that each need to receive the correct
+          mail somehow. One solution to this problem is simply to include the apartment number or the recipient's name in the
+          address. In the case of HTTP messages, the Host header serves a similar purpose.
+      </p>
+      <p>
+          When a browser sends the request, the target URL will resolve to the IP address of a particular server. When this
+          server receives the request, it refers to the Host header to determine the intended back-end and forwards the
+          request accordingly.
+      </p>
+      <h2 id="what-is-an-http-host-header-attack">What is an HTTP Host header attack?</h2>
+      <p>
+          HTTP Host header attacks exploit vulnerable websites that handle the value of the Host header in an unsafe way. If
+          the server implicitly trusts the Host header, and fails to validate or escape it properly, an attacker may be able
+          to use this input to inject harmful payloads that manipulate server-side behavior. Attacks that involve injecting a
+          payload directly into the Host header are often known as "Host header injection" attacks.
+      </p>
+      <p>
+          Off-the-shelf web applications typically don't know what domain they are deployed on unless it is manually specified
+          in a configuration file during setup. When they need to know the current domain, for example, to generate an
+          absolute URL included in an email, they may resort to retrieving the domain from the Host header:
+      </p>
+      <code class="code-block">&lt;a href="https://_SERVER['HOST']/support"&gt;Contact support&lt;/a&gt;</code>
+      <p>
+          The header value may also be used in a variety of interactions between different systems of the website's
+          infrastructure.
+      </p>
+      <p>
+          As the Host header is in fact user controllable, this practice can lead to a number of issues. If the input is not
+          properly escaped or validated, the Host header is a potential vector for exploiting a range of other
+          vulnerabilities, most notably:
+      </p>
+      <ul>
+          <li>
+              Web cache poisoning
+          </li>
+          <li>
+              Business logic flaws in specific functionality
+          </li>
+          <li>
+              Routing-based SSRF
+          </li>
+          <li>
+              Classic server-side vulnerabilities, such as SQL injection
+          </li>
+      </ul>
+      <h2 id="how-do-http-host-header-vulnerabilities-arise">How do HTTP Host header vulnerabilities arise?</h2>
+      <p>
+          HTTP Host header vulnerabilities typically arise due to the flawed assumption that the header is not user
+          controllable. This creates implicit trust in the Host header and results in inadequate validation or escaping of its
+          value, even though an attacker can easily modify this using tools like Burp Proxy.
+      </p>
+      <p>
+          Even if the Host header itself is handled more securely, depending on the configuration of the servers that deal
+          with incoming requests, the Host can potentially be overridden by injecting other headers. Sometimes website owners
+          are unaware that these headers are supported by default and, as a result, they may not be treated with the same
+          level of scrutiny.
+      </p>
+      <p>
+          In fact, many of these vulnerabilities arise not because of insecure coding but because of insecure configuration of
+          one or more components in the related infrastructure. These configuration issues can occur because websites
+          integrate third-party technologies into their architecture without necessarily understanding the configuration
+          options and their security implications.
+      </p>
+      
+      <h2 id="how-to-prevent-http-host-header-attacks">How to prevent HTTP Host header attacks</h2>
+      <p>
+          To prevent HTTP Host header attacks, the simplest approach is to avoid using the Host header altogether in
+          server-side code. Double-check whether each URL really needs to be absolute. You will often find that you can just
+          use a relative URL instead. This simple change can help you prevent web
+              cache poisoning vulnerabilities in particular.
+      </p>
+      <p>
+          Other ways to prevent HTTP Host header attacks include:
+      </p>
+      <h2>Protect absolute URLs</h2>
+      <p>
+          When you have to use absolute URLs, you should require the current domain to be manually specified in a
+          configuration file and refer to this value instead of the Host header. This approach would eliminate the threat of
+          password reset poisoning, for example.
+      </p>
+      <h2>Validate the Host header</h2>
+      <p>
+          If you must use the Host header, make sure you validate it properly. This should involve checking it against a
+          whitelist of permitted domains and rejecting or redirecting any requests for unrecognized hosts. You should consult
+          the documentation of your framework for guidance on how to do this. For example, the Django framework provides the
+          <code>ALLOWED_HOSTS</code> option in the settings file. This approach will reduce your exposure to Host header
+          injection attacks.
+      </p>
+      <h2>Don't support Host override headers</h2>
+      <p>
+          It is also important to check that you do not support additional headers that may be used to construct these
+          attacks, in particular <code>X-Forwarded-Host</code>. Remember that these may be supported by default.
+      </p>
+      <h2>Whitelist permitted domains</h2>
+      <p>
+          To prevent routing-based attacks on internal infrastructure, you should configure your load balancer or any reverse
+          proxies to forward requests only to a whitelist of permitted domains.
+      </p>
+      <h2>Be careful with internal-only virtual hosts</h2>
+      <p>
+          When using virtual hosting, you should avoid hosting internal-only websites and applications on the same server as
+          public-facing content. Otherwise, attackers may be able to access internal domains via Host header manipulation.
+      </p>
+      </div>
+
+      <div class="related-posts-wrapper">
+        <a id="related" href="#related"><h3>Related Posts</h3></a>
+        <hr id="after-related" />
+
+        <ul class="related-posts img-list">
+          <li>
+            <a href="./sql-injection.html" class="inner">
+              <div class="li-img">
+                <img
+                  src="../../images/sql-injection.svg"
+                  alt="SQL Injection"
+                />
+              </div>
+              <div class="li-text">
+                <h3 class="li-head">SQL Injection</h3>
+                <div class="li-sub">
+                  <p>Read about sqli vulnerabilities.</p>
+                </div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="./logic-flaws.html" class="inner">
+              <div class="li-img">
+                <img
+                  src="../../images/logic-flaws.jpg"
+                  alt="Business Logic Vulnerabilities"
+                />
+              </div>
+              <div class="li-text">
+                <h3 class="li-head">Business Logic Vulnerabilities</h3>
+                <div class="li-sub">
+                  <p>Read about IDORS and how to mitigate them.</p>
+                </div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="./file-upload.html" class="inner">
+              <div class="li-img">
+                <img
+                  src="../../images/file-upload-vulnerabilities.jpg"
+                  alt="File Upload Vulnerabilities"
+                />
+              </div>
+              <div class="li-text">
+                <h3 class="li-head">File Upload Vulnerabilities</h3>
+                <div class="li-sub">
+                  <p>Learn how to exploit file upload sections.</p>
+                </div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="./authentication.html" class="inner">
+              <div class="li-img">
+                <img
+                  src="../../images/password-reset-poisoning.svg"
+                  alt="Authentication Vulnerabilities"
+                />
+              </div>
+              <div class="li-text">
+                <h3 class="li-head">Authentication Vulnerabilities</h3>
+                <div class="li-sub">
+                  <p>Learn how to exploit login vulnerabilities.</p>
+                </div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="./dom-based.html" class="inner">
+              <div class="li-img">
+                <img
+                  src="../../images/dom.png"
+                  alt="DOM-based Vulnerabilities"
+                />
+              </div>
+              <div class="li-text">
+                <h3 class="li-head">DOM-based Vulnerabilities</h3>
+                <div class="li-sub">
+                  <p>Learn how DOM vulnerabilities arise.</p>
+                </div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="./file-path-traversal.html" class="inner">
+              <div class="li-img">
+                <img
+                  src="../../images/directory-traversal.svg"
+                  alt="Directory Traversal"
+                />
+              </div>
+              <div class="li-text">
+                <h3 class="li-head">Directory Traversal</h3>
+                <div class="li-sub">
+                  <p>Read about path traversal vulnerability.</p>
+                </div>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+    </div>
+    <script src="../../assets/js/darkMode.js"></script>
+  </body>
+</html>

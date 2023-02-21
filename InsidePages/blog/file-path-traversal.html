@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/x-icon" href="../../images/favicon.ico">
+    <title>Path Traversal</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../assets/css/main.css" rel="stylesheet" id="main-theme-link"/>
+    <link href="../../assets/css/blog.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="topbar">
+      <div class="topbar-children-top">
+        <div class="switch-container">
+          <!-- Rounded switch -->
+          <label class="switch">
+            <input type="checkbox" id="dark-mode-checkbox" />
+            <span class="slider round"></span>
+          </label>
+        </div>
+      </div>
+      <div class="topbar-children-top">
+        <div class="icon-bar">
+          <a href="https://t.me/fibaruSecurity"><i class="fa fa-fw fa-telegram"></i></a>
+          <a href="https://www.reddit.com/r/fibaruSecurity/"><i class="fa fa-fw fa-reddit"></i></a>
+          <a href="https://twitter.com/FibaruSec"><i class="fa fa-fw fa-twitter-square"></i></a>
+        </div>
+      </div>
+
+      <div class="topbar-children">
+        <!-- griffin logo -->
+        <img
+          id="griffin"
+          src="../../images/techno_griffin.svg"
+          width="40"
+          height="60"
+          alt="griffin"
+        />
+
+        <!-- navigational buttons -->
+        <div class="navbar">
+          <!-- home -->
+          <div class="dropdown">
+            <button class="dropbtn" onclick="location.href='../../index.html'">
+              <i class="fa fa-fw fa-home"></i>
+              Home
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+              <a href="../../index.html#main-image-header">Header Images</a>
+              <a href="../../index.html#our-features-slide">Slide</a>
+              <a href="../../index.html#reviews-about-us">Reviews</a>
+              <a href="../../index.html#clients-working-with-us">Clients</a>
+              <a href="../../index.html#brute-demonstration">Brute Force</a>
+            </div>
+          </div>
+
+          <!-- archive -->
+          <div class="dropdown">
+            <button class="dropbtn" onclick="location.href='../site-map.html'">
+              <i class="fa fa-fw fa-pencil"></i>
+              Archive
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+              <a href="../site-map.html">Site Map</a>
+              <a href="../blog-archive.html">Blog Archive</a>
+              <a href="../gallery.html">Gallery</a>
+            </div>
+          </div>
+
+          <!-- about us -->
+          <div class="dropdown">
+            <button class="dropbtn" onclick="location.href='../about.html'">
+              <i class="fa fa-fw fa-info-circle"></i>
+              About Us
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+              <a href="../about.html#about-us">About Us</a>
+              <a href="../about.html#contact-us">Contact Us</a>
+              <a href="../about.html#legal-policy">Legal Notice</a>
+              <a href="../about.html#privacy-policy">Privacy Policy</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="topbar-children">
+        <div class="login-bar">
+          <a href="../login.html"><i class="fa fa-fw fa-user"></i> Login</a>
+          <a href="../register.html"
+            ><i class="fa fa-fw fa-edit"></i> Register</a
+          >
+          <a href=""><i class="fa fa-fw fa-search"></i> Search</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="blog-content">
+      <h1>Directory Traversal</h1>
+      <div class="info-card">
+        <p>by Onur Admin</p>
+        <p id="date">24 / 04 / 2022</p>
+        <hr />
+      </div>
+
+      <div class="post-text">
+        <p>
+          In this section, we'll explain what directory traversal is, describe how to
+          carry out path traversal attacks and circumvent common obstacles, and spell
+          out how to prevent path traversal vulnerabilities.
+        </p>
+        <img
+          alt="Directory traversal"
+          src="../../images/directory-traversal.svg"
+        />
+        <h2 id="what-is-directory-traversal">What is directory traversal?</h2>
+        <p cms-metadescription="">
+          Directory traversal (also known as file path traversal) is a web security
+          vulnerability that allows an attacker to read arbitrary files on the server
+          that is running an application. This might include application code and data,
+          credentials for back-end systems, and sensitive operating system files. In
+          some cases, an attacker might be able to write to arbitrary files on the
+          server, allowing them to modify application data or behavior, and ultimately
+          take full control of the server.
+        </p>
+        <h2 id="reading-arbitrary-files-via-directory-traversal">
+          Reading arbitrary files via directory traversal
+        </h2>
+        <p>
+          Consider a shopping application that displays images of items for sale. Images
+          are loaded via some HTML like the following:
+        </p>
+        <code class="code-block">&lt;img src="/loadImage?filename=218.png"&gt;</code>
+        <p>
+          The <code>loadImage</code> URL takes a <code>filename</code> parameter and
+          returns the contents of the specified file. The image files themselves are
+          stored on disk in the location <code>/var/www/images/</code>. To return an
+          image, the application appends the requested filename to this base directory
+          and uses a filesystem API to read the contents of the file. In the above case,
+          the application reads from the following file path:
+        </p>
+        <code class="code-block">/var/www/images/218.png</code>
+        <p>
+          The application implements no defenses against directory traversal attacks, so
+          an attacker can request the following URL to retrieve an arbitrary file from
+          the server's filesystem:
+        </p>
+        <code class="code-block"
+          >https://insecure-website.com/loadImage?filename=../../../etc/passwd</code
+        >
+        <p>This causes the application to read from the following file path:</p>
+        <code class="code-block">/var/www/images/../../../etc/passwd</code>
+        <p>
+          The sequence <code>../</code> is valid within a file path, and means to step
+          up one level in the directory structure. The three consecutive
+          <code>../</code> sequences step up from <code>/var/www/images/</code> to the
+          filesystem root, and so the file that is actually read is:
+        </p>
+        <code class="code-block">/etc/passwd</code>
+        <p>
+          On Unix-based operating systems, this is a standard file containing details of
+          the users that are registered on the server.
+        </p>
+        <p>
+          On Windows, both <code>../</code> and <code>..\</code> are valid directory
+          traversal sequences, and an equivalent attack to retrieve a standard operating
+          system file would be:
+        </p>
+        <code class="code-block"
+          >https://insecure-website.com/loadImage?filename=..\..\..\windows\win.ini</code
+        >
+        
+        <h2 id="common-obstacles-to-exploiting-file-path-traversal-vulnerabilities">
+          Common obstacles to exploiting file path traversal vulnerabilities
+        </h2>
+        <p>
+          Many applications that place user input into file paths implement some kind of
+          defense against path traversal attacks, and these can often be circumvented.
+        </p>
+        <p>
+          If an application strips or blocks directory traversal sequences from the
+          user-supplied filename, then it might be possible to bypass the defense using
+          a variety of techniques.
+        </p>
+        <p>
+          You might be able to use an absolute path from the filesystem root, such as
+          <code>filename=/etc/passwd</code>, to directly reference a file without using
+          any traversal sequences.
+        </p>
+        
+        <p>
+          You might be able to use nested traversal sequences, such as
+          <code>....//</code> or <code>....\/</code>, which will revert to simple
+          traversal sequences when the inner sequence is stripped.
+        </p>
+        
+        <p>
+          In some contexts, such as in a URL path or the
+          <code>filename</code> parameter of a <code>multipart/form-data</code> request,
+          web servers may strip any directory traversal sequences before passing your
+          input to the application. You can sometimes bypass this kind of sanitization
+          by URL encoding, or even double URL encoding, the <code>../</code> characters,
+          resulting in <code>%2e%2e%2f</code> or
+          <code>%252e%252e%252f</code> respectively. Various non-standard encodings,
+          such as <code>..%c0%af</code> or <code>..%ef%bc%8f</code>, may also do the
+          trick.
+        </p>
+        
+        <p>
+          If an application requires that the user-supplied filename must start with the
+          expected base folder, such as <code>/var/www/images</code>, then it might be
+          possible to include the required base folder followed by suitable traversal
+          sequences. For example:
+        </p>
+        <code class="code-block">filename=/var/www/images/../../../etc/passwd</code>
+        
+        <p>
+          If an application requires that the user-supplied filename must end with an
+          expected file extension, such as <code>.png</code>, then it might be possible
+          to use a null byte to effectively terminate the file path before the required
+          extension. For example:
+        </p>
+        <code class="code-block">filename=../../../etc/passwd%00.png</code>
+        
+        <h2 id="how-to-prevent-a-directory-traversal-attack">
+          How to prevent a directory traversal attack
+        </h2>
+        <p>
+          The most effective way to prevent file path traversal vulnerabilities is to
+          avoid passing user-supplied input to filesystem APIs altogether. Many
+          application functions that do this can be rewritten to deliver the same
+          behavior in a safer way.
+        </p>
+        <p>
+          If it is considered unavoidable to pass user-supplied input to filesystem
+          APIs, then two layers of defense should be used together to prevent attacks:
+        </p>
+        <ul>
+          <li>
+            The application should validate the user input before processing it.
+            Ideally, the validation should compare against a whitelist of permitted
+            values. If that isn't possible for the required functionality, then the
+            validation should verify that the input contains only permitted content,
+            such as purely alphanumeric characters.
+          </li>
+          <li>
+            After validating the supplied input, the application should append the input
+            to the base directory and use a platform filesystem API to canonicalize the
+            path. It should verify that the canonicalized path starts with the expected
+            base directory.
+          </li>
+        </ul>
+        <p>
+          Below is an example of some simple Java code to validate the canonical path of
+          a file based on user input:
+        </p>
+        <code class="code-block"
+          >File file = new File(BASE_DIRECTORY, userInput); 
+if (file.getCanonicalPath().startsWith(BASE_DIRECTORY)) { 
+    // process file 
+}</code>
+      </div>
+
+      <div class="related-posts-wrapper">
+        <a id="related" href="#related"><h3>Related Posts</h3></a>
+        <hr id="after-related" />
+
+        <ul class="related-posts img-list">
+          <li>
+            <a href="./host-header.html" class="inner">
+              <div class="li-img">
+                <img
+                  src="../../images/host-header-attacks.jpg"
+                  alt="Http Host Header Attacks"
+                />
+              </div>
+              <div class="li-text">
+                <h3 class="li-head">Http Host Header Attacks</h3>
+                <div class="li-sub">
+                  <p>Learn how headers can be used to attack.</p>
+                </div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="./logic-flaws.html" class="inner">
+              <div class="li-img">
+                <img
+                  src="../../images/logic-flaws.jpg"
+                  alt="Business Logic Vulnerabilities"
+                />
+              </div>
+              <div class="li-text">
+                <h3 class="li-head">Business Logic Vulnerabilities</h3>
+                <div class="li-sub">
+                  <p>Read about IDORS and how to mitigate them.</p>
+                </div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="./file-upload.html" class="inner">
+              <div class="li-img">
+                <img
+                  src="../../images/file-upload-vulnerabilities.jpg"
+                  alt="File Upload Vulnerabilities"
+                />
+              </div>
+              <div class="li-text">
+                <h3 class="li-head">File Upload Vulnerabilities</h3>
+                <div class="li-sub">
+                  <p>Learn how to exploit file upload sections.</p>
+                </div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="./authentication.html" class="inner">
+              <div class="li-img">
+                <img
+                  src="../../images/password-reset-poisoning.svg"
+                  alt="Authentication Vulnerabilities"
+                />
+              </div>
+              <div class="li-text">
+                <h3 class="li-head">Authentication Vulnerabilities</h3>
+                <div class="li-sub">
+                  <p>Learn how to exploit login vulnerabilities.</p>
+                </div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="./dom-based.html" class="inner">
+              <div class="li-img">
+                <img
+                  src="../../images/dom.png"
+                  alt="DOM-based Vulnerabilities"
+                />
+              </div>
+              <div class="li-text">
+                <h3 class="li-head">DOM-based Vulnerabilities</h3>
+                <div class="li-sub">
+                  <p>Learn how DOM vulnerabilities arise.</p>
+                </div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="./sql-injection.html" class="inner">
+              <div class="li-img">
+                <img
+                  src="../../images/sql-injection.svg"
+                  alt="SQL Injection"
+                />
+              </div>
+              <div class="li-text">
+                <h3 class="li-head">SQL Injection</h3>
+                <div class="li-sub">
+                  <p>Read about sqli vulnerabilities.</p>
+                </div>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+    </div>
+    <script src="../../assets/js/darkMode.js"></script>
+  </body>
+</html>

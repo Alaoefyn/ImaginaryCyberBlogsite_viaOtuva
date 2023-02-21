@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/x-icon" href="../../images/favicon.ico">
+    <title>Business Logic Flaws</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../assets/css/main.css" rel="stylesheet" id="main-theme-link"/>
+    <link href="../../assets/css/blog.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="topbar">
+      <div class="topbar-children-top">
+        <div class="switch-container">
+          <!-- Rounded switch -->
+          <label class="switch">
+            <input type="checkbox" id="dark-mode-checkbox" />
+            <span class="slider round"></span>
+          </label>
+        </div>
+      </div>
+      <div class="topbar-children-top">
+        <div class="icon-bar">
+          <a href="https://t.me/fibaruSecurity"><i class="fa fa-fw fa-telegram"></i></a>
+          <a href="https://www.reddit.com/r/fibaruSecurity/"><i class="fa fa-fw fa-reddit"></i></a>
+          <a href="https://twitter.com/FibaruSec"><i class="fa fa-fw fa-twitter-square"></i></a>
+        </div>
+      </div>
+
+      <div class="topbar-children">
+        <!-- griffin logo -->
+        <img
+          id="griffin"
+          src="../../images/techno_griffin.svg"
+          width="40"
+          height="60"
+          alt="griffin"
+        />
+
+        <!-- navigational buttons -->
+        <div class="navbar">
+          <!-- home -->
+          <div class="dropdown">
+            <button class="dropbtn" onclick="location.href='../../index.html'">
+              <i class="fa fa-fw fa-home"></i>
+              Home
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+              <a href="../../index.html#main-image-header">Header Images</a>
+              <a href="../../index.html#our-features-slide">Slide</a>
+              <a href="../../index.html#reviews-about-us">Reviews</a>
+              <a href="../../index.html#clients-working-with-us">Clients</a>
+              <a href="../../index.html#brute-demonstration">Brute Force</a>
+            </div>
+          </div>
+
+          <!-- archive -->
+          <div class="dropdown">
+            <button class="dropbtn" onclick="location.href='../site-map.html'">
+              <i class="fa fa-fw fa-pencil"></i>
+              Archive
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+              <a href="../site-map.html">Site Map</a>
+              <a href="../blog-archive.html">Blog Archive</a>
+              <a href="../gallery.html">Gallery</a>
+            </div>
+          </div>
+
+          <!-- about us -->
+          <div class="dropdown">
+            <button class="dropbtn" onclick="location.href='../about.html'">
+              <i class="fa fa-fw fa-info-circle"></i>
+              About Us
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+              <a href="../about.html#about-us">About Us</a>
+              <a href="../about.html#contact-us">Contact Us</a>
+              <a href="../about.html#legal-policy">Legal Notice</a>
+              <a href="../about.html#privacy-policy">Privacy Policy</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="topbar-children">
+        <div class="login-bar">
+          <a href="../login.html"><i class="fa fa-fw fa-user"></i> Login</a>
+          <a href="../register.html"
+            ><i class="fa fa-fw fa-edit"></i> Register</a
+          >
+          <a href=""><i class="fa fa-fw fa-search"></i> Search</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="blog-content">
+      <h1>Business Logic Vulnerabilities</h1>
+      <div class="info-card">
+        <p>by Onur Admin</p>
+        <p id="date">24 / 04 / 2022</p>
+        <hr />
+      </div>
+
+      <div class="post-text">
+        <p>
+          In this section, we'll introduce the concept of business logic vulnerabilities
+          and explain how they can arise due to flawed assumptions about user behavior.
+          We'll discuss the potential impact of logic flaws and teach you how they can
+          be exploited. You can also practice what you've learned using our interactive
+          labs, which are based on real bugs that we've encountered in the wild.
+          Finally, we'll provide some general best practices to help you prevent these
+          kinds of logic flaws arising in your own applications.
+        </p>
+        <img
+          alt="Business logic vulnerabilities"
+          src="../../images/logic-flaws.jpg"
+        />
+        
+        <a
+          id="what-are-business-logic-vulnerabilities"
+          href="#what-are-business-logic-vulnerabilities"
+          ><h2>What are business logic vulnerabilities?</h2></a
+        >
+        <p>
+          Business logic vulnerabilities are flaws in the design and implementation of
+          an application that allow an attacker to elicit unintended behavior. This
+          potentially enables attackers to manipulate legitimate functionality to
+          achieve a malicious goal. These flaws are generally the result of failing to
+          anticipate unusual application states that may occur and, consequently,
+          failing to handle them safely.
+        </p>
+        <p>
+          Logic flaws are often invisible to people who aren't explicitly looking for
+          them as they typically won't be exposed by normal use of the application.
+          However, an attacker may be able to exploit behavioral quirks by interacting
+          with the application in ways that developers never intended.
+        </p>
+        <p>
+          One of the main purposes of business logic is to enforce the rules and
+          constraints that were defined when designing the application or functionality.
+          Broadly speaking, the business rules dictate how the application should react
+          when a given scenario occurs. This includes preventing users from doing things
+          that will have a negative impact on the business or that simply don't make
+          sense.
+        </p>
+        <p>
+          Flaws in the logic can allow attackers to circumvent these rules. For example,
+          they might be able to complete a transaction without going through the
+          intended purchase workflow. In other cases, broken or non-existent validation
+          of user-supplied data might allow users to make arbitrary changes to
+          transaction-critical values or submit nonsensical input. By passing unexpected
+          values into server-side logic, an attacker can potentially induce the
+          application to do something that it isn't supposed to.
+        </p>
+        <p>
+          Logic-based vulnerabilities can be extremely diverse and are often unique to
+          the application and its specific functionality. Identifying them often
+          requires a certain amount of human knowledge, such as an understanding of the
+          business domain or what goals an attacker might have in a given context. This
+          makes them difficult to detect using automated vulnerability scanners. As a
+          result, logic flaws are a great target for bug bounty hunters and manual
+          testers in general.
+        </p>
+        
+        <a
+          id="how-do-business-logic-vulnerabilities-arise"
+          href="#how-do-business-logic-vulnerabilities-arise"
+          ><h2>How do business logic vulnerabilities arise?</h2></a
+        >
+        <p>
+          Business logic vulnerabilities often arise because the design and development
+          teams make flawed assumptions about how users will interact with the
+          application. These bad assumptions can lead to inadequate validation of user
+          input. For example, if the developers assume that users will pass data
+          exclusively via a web browser, the application may rely entirely on weak
+          client-side controls to validate input. These are easily bypassed by an
+          attacker using an intercepting proxy.
+        </p>
+        <p>
+          Ultimately, this means that when an attacker deviates from the expected user
+          behavior, the application fails to take appropriate steps to prevent this and,
+          subsequently, fails to handle the situation safely.
+        </p>
+        <p>
+          Logic flaws are particularly common in overly complicated systems that even
+          the development team themselves do not fully understand. To avoid logic flaws,
+          developers need to understand the application as a whole. This includes being
+          aware of how different functions can be combined in unexpected ways.
+          Developers working on large code bases may not have an intimate understanding
+          of how all areas of the application work. Someone working on one component
+          could make flawed assumptions about how another component works and, as a
+          result, inadvertently introduce serious logic flaws. If the developers do not
+          explicitly document any assumptions that are being made, it is easy for these
+          kinds of vulnerabilities to creep into an application.
+        </p>
+        
+        <a
+          id="what-is-the-impact-of-business-logic-vulnerabilities"
+          href="#what-is-the-impact-of-business-logic-vulnerabilities"
+          ><h2>What is the impact of business logic vulnerabilities?</h2></a
+        >
+        <p>
+          The impact of business logic vulnerabilities can, at times, be fairly trivial.
+          It is a broad category and the impact is highly variable. However, any
+          unintended behavior can potentially lead to high-severity attacks if an
+          attacker is able to manipulate the application in the right way. For this
+          reason, quirky logic should ideally be fixed even if you can't work out how to
+          exploit it yourself. There is always a risk that someone else will be able to.
+        </p>
+        <p>
+          Fundamentally, the impact of any logic flaw depends on what functionality it
+          is related to. If the flaw is in the authentication mechanism, for example,
+          this could have a serious impact on your overall security. Attackers could
+          potentially exploit this for privilege escalation, or to bypass authentication
+          entirely, gaining access to sensitive data and functionality. This also
+          exposes an increased attack surface for other exploits.
+        </p>
+        <p>
+          Flawed logic in financial transactions can obviously lead to massive losses
+          for the business through stolen funds, fraud, and so on.
+        </p>
+        <p>
+          You should also note that even though logic flaws may not allow an attacker to
+          benefit directly, they could still allow a malicious party to damage the
+          business in some way.
+        </p>
+        
+        <a
+          id="what-are-some-examples-of-business-logic-vulnerabilities"
+          href="#what-are-some-examples-of-business-logic-vulnerabilities"
+          ><h2>What are some examples of business logic vulnerabilities?</h2></a
+        >
+        <p>
+          The best way to understand business logic vulnerabilities is to look at
+          real-world cases and learn from the mistakes that were made. We've provided
+          concrete examples of a variety of common logic flaws, as well as some
+          deliberately vulnerable websites so that you can practice exploiting these
+          vulnerabilities yourself.
+        </p>
+        
+        <a
+          id="how-to-prevent-business-logic-vulnerabilities"
+          href="#how-to-prevent-business-logic-vulnerabilities"
+          ><h2>How to prevent business logic vulnerabilities</h2></a
+        >
+        <p>In short, the keys to preventing business logic vulnerabilities are to:</p>
+        <ul>
+          <li>
+            Make sure developers and testers understand the domain that the application
+            serves
+          </li>
+          <li>
+            Avoid making implicit assumptions about user behavior or the behavior of
+            other parts of the application
+          </li>
+        </ul>
+        <p>
+          You should identify what assumptions you have made about the server-side state
+          and implement the necessary logic to verify that these assumptions are met.
+          This includes making sure that the value of any input is sensible before
+          proceeding.
+        </p>
+        <p>
+          It is also important to make sure that both developers and testers are able to
+          fully understand these assumptions and how the application is supposed to
+          react in different scenarios. This can help the team to spot logic flaws as
+          early as possible. To facilitate this, the development team should adhere to
+          the following best practices wherever possible:
+        </p>
+        <ul>
+          <li>
+            Maintain clear design documents and data flows for all transactions and
+            workflows, noting any assumptions that are made at each stage.
+          </li>
+          <li>
+            Write code as clearly as possible. If it's difficult to understand what is
+            supposed to happen, it will be difficult to spot any logic flaws. Ideally,
+            well-written code shouldn't need documentation to understand it. In
+            unavoidably complex cases, producing clear documentation is crucial to
+            ensure that other developers and testers know what assumptions are being
+            made and exactly what the expected behavior is.
+          </li>
+          <li>
+            Note any references to other code that uses each component. Think about any
+            side-effects of these dependencies if a malicious party were to manipulate
+            them in an unusual way.
+          </li>
+        </ul>
+        <p>
+          Due to the relatively unique nature of many logic flaws, it is easy to brush
+          them off as a one-time mistake due to human error and move on. However, as
+          we've demonstrated, these flaws are often the result of bad practices in the
+          initial phases of building the application. Analyzing why a logic flaw existed
+          in the first place, and how it was missed by the team, can help you to spot
+          weaknesses in your processes. By making minor adjustments, you can increase
+          the likelihood that similar flaws will be cut off at the source or caught
+          earlier in the development process.
+        </p>
+        
+       
+      </div>
+
+      <div class="related-posts-wrapper">
+        <a id="related" href="#related"><h3>Related Posts</h3></a>
+        <hr id="after-related" />
+
+        <ul class="related-posts img-list">
+          <li>
+            <a href="./host-header.html" class="inner">
+              <div class="li-img">
+                <img
+                  src="../../images/host-header-attacks.jpg"
+                  alt="Http Host Header Attacks"
+                />
+              </div>
+              <div class="li-text">
+                <h3 class="li-head">Http Host Header Attacks</h3>
+                <div class="li-sub">
+                  <p>Learn how headers can be used to attack.</p>
+                </div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="./sql-injection.html" class="inner">
+              <div class="li-img">
+                <img
+                  src="../../images/sql-injection.svg"
+                  alt="SQL Injection"
+                />
+              </div>
+              <div class="li-text">
+                <h3 class="li-head">SQL Injection</h3>
+                <div class="li-sub">
+                  <p>Read about sqli vulnerabilities.</p>
+                </div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="./file-upload.html" class="inner">
+              <div class="li-img">
+                <img
+                  src="../../images/file-upload-vulnerabilities.jpg"
+                  alt="File Upload Vulnerabilities"
+                />
+              </div>
+              <div class="li-text">
+                <h3 class="li-head">File Upload Vulnerabilities</h3>
+                <div class="li-sub">
+                  <p>Learn how to exploit file upload sections.</p>
+                </div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="./authentication.html" class="inner">
+              <div class="li-img">
+                <img
+                  src="../../images/password-reset-poisoning.svg"
+                  alt="Authentication Vulnerabilities"
+                />
+              </div>
+              <div class="li-text">
+                <h3 class="li-head">Authentication Vulnerabilities</h3>
+                <div class="li-sub">
+                  <p>Learn how to exploit login vulnerabilities.</p>
+                </div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="./dom-based.html" class="inner">
+              <div class="li-img">
+                <img
+                  src="../../images/dom.png"
+                  alt="DOM-based Vulnerabilities"
+                />
+              </div>
+              <div class="li-text">
+                <h3 class="li-head">DOM-based Vulnerabilities</h3>
+                <div class="li-sub">
+                  <p>Learn how DOM vulnerabilities arise.</p>
+                </div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="./file-path-traversal.html" class="inner">
+              <div class="li-img">
+                <img
+                  src="../../images/directory-traversal.svg"
+                  alt="Directory Traversal"
+                />
+              </div>
+              <div class="li-text">
+                <h3 class="li-head">Directory Traversal</h3>
+                <div class="li-sub">
+                  <p>Read about path traversal vulnerability.</p>
+                </div>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+    </div>
+    <script src="../../assets/js/darkMode.js"></script>
+  </body>
+</html>

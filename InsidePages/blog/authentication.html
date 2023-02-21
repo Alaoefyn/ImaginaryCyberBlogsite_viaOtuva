@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/x-icon" href="../../images/favicon.ico">
+    <title>Authentication</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../assets/css/main.css" rel="stylesheet" id="main-theme-link"/>
+    <link href="../../assets/css/blog.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="topbar">
+      <div class="topbar-children-top">
+        <div class="switch-container">
+          <!-- Rounded switch -->
+          <label class="switch">
+            <input type="checkbox" id="dark-mode-checkbox" />
+            <span class="slider round"></span>
+          </label>
+        </div>
+      </div>
+      <div class="topbar-children-top">
+        <div class="icon-bar">
+          <a href="https://t.me/fibaruSecurity"><i class="fa fa-fw fa-telegram"></i></a>
+          <a href="https://www.reddit.com/r/fibaruSecurity/"><i class="fa fa-fw fa-reddit"></i></a>
+          <a href="https://twitter.com/FibaruSec"><i class="fa fa-fw fa-twitter-square"></i></a>
+        </div>
+      </div>
+
+      <div class="topbar-children">
+        <!-- griffin logo -->
+        <img
+          id="griffin"
+          src="../../images/techno_griffin.svg"
+          width="40"
+          height="60"
+          alt="griffin"
+        />
+
+        <!-- navigational buttons -->
+        <div class="navbar">
+          <!-- home -->
+          <div class="dropdown">
+            <button class="dropbtn" onclick="location.href='../../index.html'">
+              <i class="fa fa-fw fa-home"></i>
+              Home
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+              <a href="../../index.html#main-image-header">Header Images</a>
+              <a href="../../index.html#our-features-slide">Slide</a>
+              <a href="../../index.html#reviews-about-us">Reviews</a>
+              <a href="../../index.html#clients-working-with-us">Clients</a>
+              <a href="../../index.html#brute-demonstration">Brute Force</a>
+            </div>
+          </div>
+
+          <!-- archive -->
+          <div class="dropdown">
+            <button class="dropbtn" onclick="location.href='../site-map.html'">
+              <i class="fa fa-fw fa-pencil"></i>
+              Archive
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+              <a href="../site-map.html">Site Map</a>
+              <a href="../blog-archive.html">Blog Archive</a>
+              <a href="../gallery.html">Gallery</a>
+            </div>
+          </div>
+
+          <!-- about us -->
+          <div class="dropdown">
+            <button class="dropbtn" onclick="location.href='../about.html'">
+              <i class="fa fa-fw fa-info-circle"></i>
+              About Us
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+              <a href="../about.html#about-us">About Us</a>
+              <a href="../about.html#contact-us">Contact Us</a>
+              <a href="../about.html#legal-policy">Legal Notice</a>
+              <a href="../about.html#privacy-policy">Privacy Policy</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="topbar-children">
+        <div class="login-bar">
+          <a href="../login.html"><i class="fa fa-fw fa-user"></i> Login</a>
+          <a href="../register.html"
+            ><i class="fa fa-fw fa-edit"></i> Register</a
+          >
+          <a href=""><i class="fa fa-fw fa-search"></i> Search</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="blog-content">
+      <h1>Authentication Vulnerabilities</h1>
+      <div class="info-card">
+        <p>by Onur Admin</p>
+        <p id="date">24 / 04 / 2022</p>
+        <hr />
+      </div>
+
+      <div class="post-text">
+        <p>
+          Conceptually at least, authentication vulnerabilities are some of the
+          simplest issues to understand. However, they can be among the most
+          critical due to the obvious relationship between authentication and
+          security. As well as potentially allowing attackers direct access to
+          sensitive data and functionality, they also expose additional attack
+          surface for further exploits. For this reason, learning how to
+          identify and exploit authentication vulnerabilities, including how to
+          bypass common protection measures, is a fundamental skill.
+        </p>
+        <p>
+          In this section, we'll look at some of the most common authentication
+          mechanisms used by websites and discuss potential vulnerabilities in
+          them. We'll highlight both inherent vulnerabilities in different
+          authentication mechanisms, as well as some typical vulnerabilities
+          that are introduced by their improper implementation. Finally, we'll
+          provide some basic guidance on how you can ensure that your own
+          authentication mechanisms are as robust as possible.
+        </p>
+        <img
+          alt="Authentication vulnerabilities: password reset poisoning"
+          src="../../images/password-reset-poisoning.svg"
+        />
+        <h2 id="what-is-authentication">What is authentication?</h2>
+        <p>
+          Authentication is the process of verifying the identity of a given
+          user or client. In other words, it involves making sure that they
+          really are who they claim to be. At least in part, websites are
+          exposed to anyone who is connected to the internet by design.
+          Therefore, robust authentication mechanisms are an integral aspect of
+          effective web security.
+        </p>
+        <p>
+          There are three authentication factors into which different types of
+          authentication can be categorized:
+        </p>
+        <ul>
+          <li>
+            Something you <strong>know</strong>, such as a password or the
+            answer to a security question. These are sometimes referred to as
+            "knowledge factors".
+          </li>
+          <li>
+            Something you <strong>have</strong>, that is, a physical object like
+            a mobile phone or security token. These are sometimes referred to as
+            "possession factors".
+          </li>
+          <li>
+            Something you <strong>are</strong> or do, for example, your
+            biometrics or patterns of behavior. These are sometimes referred to
+            as "inherence factors".
+          </li>
+        </ul>
+        <p>
+          Authentication mechanisms rely on a range of technologies to verify
+          one or more of these factors.
+        </p>
+        <h2
+          id="what-is-the-difference-between-authentication-and-authorization"
+        >
+          What is the difference between authentication and authorization?
+        </h2>
+        <p>
+          Authentication is the process of verifying that a user really
+          <strong>is who they claim to be</strong>, whereas authorization
+          involves verifying whether a user
+          <strong>is allowed to do something</strong>.
+        </p>
+        <p>
+          In the context of a website or web application, authentication
+          determines whether someone attempting to access the site with the
+          username
+          <code>Carlos123</code> really is the same person who created the
+          account.
+        </p>
+        <p>
+          Once <code>Carlos123</code> is authenticated, his permissions
+          determine whether or not he is authorized, for example, to access
+          personal information about other users or perform actions such as
+          deleting another user's account.
+        </p>
+        <h2 id="how-do-authentication-vulnerabilities-arise">
+          How do authentication vulnerabilities arise?
+        </h2>
+        <p>
+          Broadly speaking, most vulnerabilities in authentication mechanisms
+          arise in one of two ways:
+        </p>
+        <ul>
+          <li>
+            The authentication mechanisms are weak because they fail to
+            adequately protect against brute-force attacks.
+          </li>
+          <li>
+            Logic flaws or poor coding in the implementation allow the
+            authentication mechanisms to be bypassed entirely by an attacker.
+            This is sometimes referred to as "broken authentication".
+          </li>
+        </ul>
+        <p>
+          In many areas of web development, logic flaws will simply cause the
+          website to behave unexpectedly, which may or may not be a security
+          issue. However, as authentication is so critical to security, the
+          likelihood that flawed authentication logic exposes the website to
+          security issues is clearly elevated.
+        </p>
+        <h2 id="what-is-the-impact-of-vulnerable-authentication">
+          What is the impact of vulnerable authentication?
+        </h2>
+        <p>
+          The impact of authentication vulnerabilities can be very severe. Once
+          an attacker has either bypassed authentication or has brute-forced
+          their way into another user's account, they have access to all the
+          data and functionality that the compromised account has. If they are
+          able to compromise a high-privileged account, such as a system
+          administrator, they could take full control over the entire
+          application and potentially gain access to internal infrastructure.
+        </p>
+        <p>
+          Even compromising a low-privileged account might still grant an
+          attacker access to data that they otherwise shouldn't have, such as
+          commercially sensitive business information. Even if the account does
+          not have access to any sensitive data, it might still allow the
+          attacker to access additional pages, which provide a further attack
+          surface. Often, certain high-severity attacks will not be possible
+          from publicly accessible pages, but they may be possible from an
+          internal page.
+        </p>
+      </div>
+
+      <div class="related-posts-wrapper">
+        <a id="related" href="#related"><h3>Related Posts</h3></a>
+        <hr id="after-related" />
+
+        <ul class="related-posts img-list">
+          <li>
+            <a href="./host-header.html" class="inner">
+              <div class="li-img">
+                <img
+                  src="../../images/host-header-attacks.jpg"
+                  alt="Http Host Header Attacks"
+                />
+              </div>
+              <div class="li-text">
+                <h3 class="li-head">Http Host Header Attacks</h3>
+                <div class="li-sub">
+                  <p>Learn how headers can be used to attack.</p>
+                </div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="./logic-flaws.html" class="inner">
+              <div class="li-img">
+                <img
+                  src="../../images/logic-flaws.jpg"
+                  alt="Business Logic Vulnerabilities"
+                />
+              </div>
+              <div class="li-text">
+                <h3 class="li-head">Business Logic Vulnerabilities</h3>
+                <div class="li-sub">
+                  <p>Read about IDORS and how to mitigate them.</p>
+                </div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="./file-upload.html" class="inner">
+              <div class="li-img">
+                <img
+                  src="../../images/file-upload-vulnerabilities.jpg"
+                  alt="File Upload Vulnerabilities"
+                />
+              </div>
+              <div class="li-text">
+                <h3 class="li-head">File Upload Vulnerabilities</h3>
+                <div class="li-sub">
+                  <p>Learn how to exploit file upload sections.</p>
+                </div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="./sql-injection.html" class="inner">
+              <div class="li-img">
+                <img
+                  src="../../images/sql-injection.svg"
+                  alt="SQL Injection"
+                />
+              </div>
+              <div class="li-text">
+                <h3 class="li-head">SQL Injection</h3>
+                <div class="li-sub">
+                  <p>Read about sqli vulnerabilities.</p>
+                </div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="./dom-based.html" class="inner">
+              <div class="li-img">
+                <img
+                  src="../../images/dom.png"
+                  alt="DOM-based Vulnerabilities"
+                />
+              </div>
+              <div class="li-text">
+                <h3 class="li-head">DOM-based Vulnerabilities</h3>
+                <div class="li-sub">
+                  <p>Learn how DOM vulnerabilities arise.</p>
+                </div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="./file-path-traversal.html" class="inner">
+              <div class="li-img">
+                <img
+                  src="../../images/directory-traversal.svg"
+                  alt="Directory Traversal"
+                />
+              </div>
+              <div class="li-text">
+                <h3 class="li-head">Directory Traversal</h3>
+                <div class="li-sub">
+                  <p>Read about path traversal vulnerability.</p>
+                </div>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+    </div>
+    <script src="../../assets/js/darkMode.js"></script>
+  </body>
+</html>

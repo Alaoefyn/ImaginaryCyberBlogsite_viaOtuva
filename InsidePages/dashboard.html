@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+    <title>Dashboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../assets/css/main.css" rel="stylesheet" id="main-theme-link"/>
+    <link href="../assets/css/dashboard.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="topbar">
+      <div class="topbar-children-top">
+        <div class="switch-container">
+          <!-- Rounded switch -->
+          <label class="switch">
+            <input type="checkbox" id="dark-mode-checkbox" />
+            <span class="slider round"></span>
+          </label>
+        </div>
+      </div>
+      <div class="topbar-children-top">
+        <div class="icon-bar">
+          <a href="https://t.me/fibaruSecurity"><i class="fa fa-fw fa-telegram"></i></a>
+          <a href="https://www.reddit.com/r/fibaruSecurity/"><i class="fa fa-fw fa-reddit"></i></a>
+          <a href="https://twitter.com/FibaruSec"><i class="fa fa-fw fa-twitter-square"></i></a>
+        </div>
+      </div>
+
+      <div class="topbar-children">
+        <!-- griffin logo -->
+        <img
+          id="griffin"
+          src="../images/techno_griffin.svg"
+          width="40"
+          height="60"
+          alt="griffin"
+        />
+
+        <!-- navigational buttons -->
+        <div class="navbar">
+          <!-- home -->
+          <div class="dropdown">
+            <button class="dropbtn" onclick="location.href='../index.html'">
+              <i class="fa fa-fw fa-home"></i>
+              Home
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+              <a href="../index.html#main-image-header">Header Images</a>
+              <a href="../index.html#our-features-slide">Slide</a>
+              <a href="../index.html#reviews-about-us">Reviews</a>
+              <a href="../index.html#clients-working-with-us">Clients</a>
+              <a href="../index.html#brute-demonstration">Brute Force</a>
+            </div>
+          </div>
+
+          <!-- archive -->
+          <div class="dropdown">
+            <button class="dropbtn" onclick="location.href='./site-map.html'">
+              <i class="fa fa-fw fa-pencil"></i>
+              Archive
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+              <a href="./site-map.html">Site Map</a>
+              <a href="./blog-archive.html">Blog Archive</a>
+              <a href="./gallery.html">Gallery</a>
+            </div>
+          </div>
+
+          <!-- about us -->
+          <div class="dropdown">
+            <button class="dropbtn" onclick="location.href='./about.html'">
+              <i class="fa fa-fw fa-info-circle"></i>
+              About Us
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+              <a href="./about.html#about-us">About Us</a>
+              <a href="./about.html#contact-us">Contact Us</a>
+              <a href="./about.html#legal-policy">Legal Notice</a>
+              <a href="./about.html#privacy-policy">Privacy Policy</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="topbar-children">
+        <div class="login-bar">
+          <a href=""><i class="fa fa-fw fa-user-circle-o"></i> My Account</a>
+          <!-- <a href="./register.html"><i class="fa fa-fw fa-edit"></i> Register</a> -->
+          <a href=""><i class="fa fa-fw fa-search"></i> Search</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="greeting-container">
+      <h1>Welcome back!</h1>
+      <p>In this page you can view everything.</p>
+    </div>
+
+    <div class="main-container">
+      <button class="tablink" onclick="tabSwitch('1', this)" id="defaultOpen"><i class="fa fa-fw fa-binoculars"></i> Stats</button>
+      <button class="tablink" onclick="tabSwitch('2', this)"><i class="fa fa-fw fa-users"></i> Users</button>
+      <button class="tablink" onclick="tabSwitch('3', this)"><i class="fa fa-fw fa-comments"></i> Comments</button>
+      <button class="tablink" onclick="tabSwitch('4', this)"><i class="fa fa-fw fa-server"></i> Server</button>
+      
+      <div id="1" class="tabcontent">
+        <p>1234 page visits</p>
+        <p>22% registered users</p>
+        <p>78% non-registered users</p>
+      </div>
+      
+      <div id="2" class="tabcontent">
+        <p>500 total registered users</p>
+        <p>200 in last week</p>
+        <p>5 account deletion</p>
+      </div>
+      
+      <div id="3" class="tabcontent">
+        <p>Total 36 comments</p>
+        <p>12 in last week</p>
+        <p>2 deleted by moderator</p>
+      </div>
+      
+      <div id="4" class="tabcontent">
+        <p>All servers are up</p>
+        <p>97 hours uptime</p>
+        <p>CDN is connected</p>
+      </div> 
+    </div>
+
+    <div class="info-container">
+      <!-- <h3>Be careful</h1> -->
+      <p>Because this page is <i><b>very</b></i> secure, refreshing or navigating out of the page will log you out.</p>
+      <a href="../index.html"><i class="fa fa-fw fa-backward"></i>Back to main page</a>
+    </div>
+
+    <script src="../assets/js/darkMode.js"></script>
+    <script src="../assets/js/dashboard.js"></script>
+  </body>
+</html>

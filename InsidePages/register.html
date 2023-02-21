@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+    <title>Register</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../assets/css/main.css" rel="stylesheet" id="main-theme-link"/>
+    <link href="../assets/css/form.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="topbar">
+      <div class="topbar-children-top">
+        <div class="switch-container">
+          <!-- Rounded switch -->
+          <label class="switch">
+            <input type="checkbox" id="dark-mode-checkbox" />
+            <span class="slider round"></span>
+          </label>
+        </div>
+      </div>
+      <div class="topbar-children-top">
+        <div class="icon-bar">
+          <a href="https://t.me/fibaruSecurity"><i class="fa fa-fw fa-telegram"></i></a>
+          <a href="https://www.reddit.com/r/fibaruSecurity/"><i class="fa fa-fw fa-reddit"></i></a>
+          <a href="https://twitter.com/FibaruSec"><i class="fa fa-fw fa-twitter-square"></i></a>
+        </div>
+      </div>
+
+      <div class="topbar-children">
+        <!-- griffin logo -->
+        <img
+          id="griffin"
+          src="../images/techno_griffin.svg"
+          width="40"
+          height="60"
+          alt="griffin"
+        />
+
+        <!-- navigational buttons -->
+        <div class="navbar">
+          <!-- home -->
+          <div class="dropdown">
+            <button
+              class="dropbtn"
+              onclick="location.href='../index.html'"
+            >
+              <i class="fa fa-fw fa-home"></i>
+              Home
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+              <a href="../index.html#main-image-header">Header Images</a>
+              <a href="../index.html#our-features-slide">Slide</a>
+              <a href="../index.html#reviews-about-us">Reviews</a>
+              <a href="../index.html#clients-working-with-us">Clients</a>
+              <a href="../index.html#brute-demonstration">Brute Force</a>
+            </div>
+          </div>
+
+          <!-- archive -->
+          <div class="dropdown">
+            <button class="dropbtn" onclick="location.href='./site-map.html'">
+              <i class="fa fa-fw fa-pencil"></i>
+              Archive
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+              <a href="./site-map.html">Site Map</a>
+              <a href="./blog-archive.html">Blog Archive</a>
+              <a href="./gallery.html">Gallery</a>
+            </div>
+          </div>
+
+          <!-- about us -->
+          <div class="dropdown">
+            <button class="dropbtn" onclick="location.href='./about.html'">
+              <i class="fa fa-fw fa-info-circle"></i>
+              About Us
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+              <a href="./about.html#about-us">About Us</a>
+              <a href="./about.html#contact-us">Contact Us</a>
+              <a href="./about.html#legal-policy">Legal Notice</a>
+              <a href="./about.html#privacy-policy">Privacy Policy</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="topbar-children">
+        <div class="login-bar">
+          <a href="./login.html"><i class="fa fa-fw fa-user"></i> Login</a>
+          <a href="./register.html"><i class="fa fa-fw fa-edit"></i> Register</a>
+          <a href=""><i class="fa fa-fw fa-search"></i> Search</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-container">
+      <form action="#">
+        <h2>Register</h2>
+        <div class="input-container">
+          <i class="fa fa-fw fa-user icon"></i>
+          <input
+            class="input-field"
+            type="text"
+            placeholder="Username"
+            name="username"
+          />
+        </div>
+
+        <div class="input-container">
+          <i class="fa fa-fw fa-envelope icon"></i>
+          <input
+            class="input-field"
+            type="text"
+            placeholder="Email"
+            name="email"
+          />
+        </div>
+
+        <div class="input-container">
+          <i class="fa fa-fw fa-key icon"></i>
+          <input
+            class="input-field"
+            type="password"
+            placeholder="Password"
+            name="password"
+          />
+        </div>
+
+        <div class="input-container">
+          <i class="fa fa-fw fa-key icon"></i>
+          <input
+            class="input-field"
+            type="password"
+            placeholder="Repeat Password"
+            name="password-re"
+          />
+        </div>
+
+        <button type="reset" class="btn">Register</button>
+      </form>
+    </div>
+    <script src="../assets/js/darkMode.js"></script>
+  </body>
+</html>

