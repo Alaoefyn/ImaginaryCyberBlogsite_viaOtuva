@@ -1,0 +1,30 @@
+../../images/host-header-attacks.jpg
+Http Host Header Attacks
+Learn how headers can be used to attack.
+
+
+../../images/logic-flaws.jpg
+Business Logic Vulnerabilities
+Read about IDORS and how to mitigate them.
+
+../../images/file-upload-vulnerabilities.jpg
+File Upload Vulnerabilities
+Learn how to exploit file upload sections.
+
+
+../../images/password-reset-poisoning.svg
+Authentication Vulnerabilities
+Learn how to exploit login vulnerabilities.
+
+
+../../images/dom.png
+DOM-based Vulnerabilities
+Learn how DOM vulnerabilities arise.
+
+../../images/sql-injection.svg
+SQL Injection
+Read about sqli vulnerabilities.
+
+../../images/directory-traversal.svg
+Directory Traversal
+Read about path traversal vulnerability.
