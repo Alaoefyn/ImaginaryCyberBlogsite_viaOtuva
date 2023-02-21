@@ -1,4 +1,4 @@
 # ImaginaryCyberBlogsite
 
 
-An imaginary blogsite as an example created with dear friend Otuva.
+An imaginary blogsite as an example created with dear brother Otuva.
