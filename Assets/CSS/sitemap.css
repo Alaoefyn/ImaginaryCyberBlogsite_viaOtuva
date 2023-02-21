@@ -1,0 +1,18 @@
+.directory-list-wrapper, .website-list-wrapper {
+    float: left;
+    width: 40%;
+    padding-top: 5%;
+    padding-left: 10%;
+    font-size: 19px;
+}
+
+.directory-list ul, .website-list-wrapper  ul {
+  margin-left: 10px;
+  padding-left: 20px;
+  border-left: 1px dashed gray;
+}
+
+li {
+  margin-bottom: 10px;
+  list-style: none;
+}

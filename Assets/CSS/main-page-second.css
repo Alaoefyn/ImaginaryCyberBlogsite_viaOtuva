@@ -1,0 +1,149 @@
+:root {
+  --main-red: #cc0000;
+  --main-white: #f9f9f9;
+  --main-grey: #555;
+  --main-black: #000;
+}
+
+strong {
+  color: var(--main-red);
+}
+
+/* 
+---------------------------------------
+-------------customer-info-------------
+---------------------------------------
+ */
+
+.customers {
+  padding: 11%;
+  text-align: center;
+}
+.learn-more {
+  opacity: 0.9;
+  background-color: var(--main-red);
+  color: var(--main-white);
+  text-decoration: none;
+  border-radius: 40px;
+  display: inline-block;
+  width: 200px;
+  height: 50px;
+  line-height: 50px;
+  font-size: 14px;
+}
+
+.learn-more:hover {
+  opacity: 1;
+}
+.customers > p {
+  font-size: 22px;
+}
+#secure-your-world {
+  font-size: 36px;
+}
+
+/* 
+------------------------------------------
+--------------parallax-image--------------
+------------------------------------------
+ */
+
+.parallax-wrapper {
+  padding-top: 7%;
+  /* padding: var(--header-image-grid-padding-left); */
+  height: 100vh;
+}
+
+.parallax-wrapper > h2 {
+  /* color: var(--main-red); */
+  text-align: center;
+  font-size: 33px;
+}
+
+.mentions {
+  text-align: center;
+  font-size: 22px;
+}
+
+.parallax-img {
+  height: 50%;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* .parallax-img {
+  background-image: url("../../images/pepe.jpg");
+} */
+
+/* 
+---------------------------------------
+-------------company-logos-------------
+---------------------------------------
+*/
+/* header */
+#our-clients {
+    font-size: 40px;
+    margin-bottom: 0px
+}
+
+/* div */
+.client-companies {
+    padding-top: 8%;
+    text-align: center;
+    font-size: 80px;
+}
+
+.client-companies i {
+    opacity: 0.5;
+}
+
+.client-companies > i:hover {
+    -webkit-transform:scale(1.2);
+    color: var(--main-red);
+    opacity: 1;
+}
+#company-logos {
+    margin-top: 0px
+}
+
+
+/* 
+------------------------------------
+------------brute-force-------------
+------------------------------------
+*/
+
+.brute-force-page {
+  padding-top: 12%;
+  text-align: center;
+  padding-bottom: 10%;
+}
+
+.brute-force-page > h3{
+  font-size: 30px;
+}
+
+.brute-force-button {
+  opacity: 0.9;
+  background-color: var(--main-red);
+  color: var(--main-white);
+  text-decoration: none;
+  border-radius: 40px;
+  display: inline-block;
+  width: 200px;
+  height: 50px;
+  line-height: 50px;
+  font-size: 18px;
+}
+
+.brute-force-button:hover {
+  opacity: 1;
+}
+
+/* 
+------------------------------------------------------------------------------------------
+------------------------------main-page-outher-than-wrappers------------------------------
+------------------------------------------------------------------------------------------
+*/

@@ -1,0 +1,56 @@
+.info-container {
+  width: 75%;
+  padding: 3%;
+}
+
+.about,
+.legal,
+.privacy,
+.contact {
+  padding-left: 4%;
+}
+
+strong {
+  color: var(--main-red);
+}
+
+a {
+  text-decoration: none;
+}
+
+#feature-table {
+    padding-top: 5%;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid var(--main-red);
+}
+
+/* Style table headers and table data */
+th,
+td {
+  text-align: center;
+  padding: 16px;
+}
+
+th:first-child,
+td:first-child {
+  text-align: left;
+}
+
+/* Zebra-striped table rows */
+tr:nth-child(even) {
+    color: var(--main-white);
+    background-color: var(--main-grey);
+}
+
+.fa-check {
+  color: lightgreen;
+}
+
+.fa-remove {
+  color: red;
+}
